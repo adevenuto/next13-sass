@@ -9,10 +9,10 @@ export const layout = ({
 }) => {
   return (
     <div className="relative h-full">
-      <div className="z-50 hidden h-full bg-gray-900 md:flex md:fixed md:flex-col md:inset-y-0 md:w-60">
+      <div className="z-50 hidden h-full bg-gray-900 md:flex md:fixed md:flex-col md:inset-y-0 md:w-72">
         <SideBar />
       </div>
-      <main className='md:pl-60'>
+      <main className='md:pl-72'>
         <NavBar />
         { children }
       </main>
