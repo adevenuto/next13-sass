@@ -12,7 +12,7 @@ export const SideBarToggle = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <div className='w-10 h-10 p-2 rounded-full hover:bg-gray-100 md:hidden'>
+        <div className='w-10 h-10 p-2 border rounded-full hover:bg-gray-100 md:hidden border-black/5'>
           <Menu />
         </div>
       </SheetTrigger>
