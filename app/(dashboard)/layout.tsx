@@ -14,7 +14,10 @@ export const layout = ({
       </div>
       <main className='md:pl-72'>
         <NavBar />
-        { children }
+        <div className="mt-14">
+          {children}
+        </div>
+        
       </main>
     </div>
   )
