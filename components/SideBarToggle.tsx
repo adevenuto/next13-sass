@@ -4,9 +4,6 @@ import React from 'react'
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { SideBar } from '@/components/SideBar'
@@ -15,7 +12,9 @@ export const SideBarToggle = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <Menu className='md:hidden'/>
+        <div className='w-10 h-10 p-2 rounded-full hover:bg-gray-100 md:hidden'>
+          <Menu />
+        </div>
       </SheetTrigger>
       <SheetContent 
         side="left"
