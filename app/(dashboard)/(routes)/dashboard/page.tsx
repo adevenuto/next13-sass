@@ -21,7 +21,7 @@ export default function Dashboard() {
       icon: Image,
       color: "text-pink-700",
       bgColor: "bg-pink-700/10",
-      href: "/music"
+      href: "/image"
     },
     {
       label: "Video Gen",
