@@ -17,7 +17,6 @@ export const layout = ({
         <div className="mt-14">
           {children}
         </div>
-        
       </main>
     </div>
   )
