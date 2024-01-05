@@ -2,15 +2,22 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 interface robotProps {
-  animate?: boolean
+  animate?: boolean,
+  height?: string,
+  width?: string,
+  className?: string
 }
 
 export const RobotSVG = ({
-  animate
+  animate,
+  height,
+  width,
+  className
 }: robotProps) => {
   const paths = ['M12 5L17.6569 10.6569', 'M22 1L22 9', 'M31.8284 5.17157L26.1716 10.8284']
   return (
-      <svg width="90" height="96" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className={`${width} ${height}`}>
+      <svg className={className} width="100%" viewBox='0 0 44 52' fill="none" preserveAspectRatio="xMidYMid meet">
         <path d="M22 15.5147L22 23.5147" stroke="black" strokeWidth="5" strokeLinecap="round"/>
         <circle cx="22" cy="15.5147" r="4" fill="black"/>
         <rect x="7" y="25.5147" width="30" height="24" rx="3" fill="#D6D6D6" stroke="black" strokeWidth="4"/>
@@ -22,10 +29,11 @@ export const RobotSVG = ({
         {animate && paths.map(path => (
           <motion.path
             key={path}
-            animate={{ pathLength: 1, pathOffset: 0 }}
             initial={{ pathLength: 1, pathOffset: 1 }}
+            animate={{ pathLength: .1, pathOffset: 0 }}
+            exit={'exit'}
             transition={{
-              duration: .6,
+              duration: .5,
               ease: "easeInOut",
               repeat: Infinity,
               repeatType: "loop",
@@ -34,11 +42,13 @@ export const RobotSVG = ({
             stroke="#000"
             strokeOpacity={1}
             strokeLinecap="round"
-            strokeWidth={2}
+            strokeWidth={3}
             d={path}
           />
         ))}
       </svg>
+    </div>
+    
   )
 }
 

@@ -8,6 +8,7 @@ import { Montserrat } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { RobotSVG } from './RobotSVG'
 
 const montserrat = Montserrat({
   weight: "600",
@@ -62,19 +63,15 @@ export const SideBar = () => {
   const pathName = usePathname()
   return (
     <div className="flex flex-col h-full gap-3 py-3 text-white bg-gray-800">
-        <div className="flex-1 px-3">
-          <Link href="/dashboard" className='flex items-center mb-14'>
-            {/* <div className="relative w-8 h-8 mr-4">
-              <Image 
-                fill
-                alt='logo'
-                src='/images/logo.png'
-              />
-            </div> */}
-            <h1 className={cn('text-2xl font-bold', montserrat.className)}>
+        <div className="flex-1 px-4">
+          <div className="flex items-center mb-16">
+            <Link className="mr-1" href="/dashboard">
+              <RobotSVG animate height="w-10" width="w-10"/>
+            </Link>
+            <h1 className={cn('self-end text-2xl font-bold leading-none', montserrat.className)}>
               NextSass
             </h1>
-          </Link>
+          </div>
           <div className="space-y-1">
             {routes.map(route => (
               <Link 

@@ -4,19 +4,28 @@ import { MessageSquare } from 'lucide-react'
 import React, { useState } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { ChatCompletionAssistantMessageParam } from 'openai/resources/index.mjs'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import axios from 'axios'
 
-import Heading from '@/components/Heading'
+
 import { formSchema } from './constants'
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { 
+  Form, 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormMessage 
+} from '@/components/ui/form'
+import Heading from '@/components/Heading'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { ChatCompletionAssistantMessageParam } from 'openai/resources/index.mjs'
 import { cn } from '@/lib/utils'
-import { Empty } from '@/components/Empty'
+import { EmptySection } from '@/components/EmptySection'
+import { RobotSVG } from '@/components/RobotSVG'
+import { UserAvatar } from '@/components/UserAvatar'
 
 
 
@@ -72,12 +81,13 @@ export const Conversation = () => {
                   <FormItem className='col-span-12 lg:col-span-10'>
                     <FormControl className='p-0 m-0'>
                       <Input 
-                        className='border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
+                        className='text-lg border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
                         placeholder='How far away is the sun?'
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -91,24 +101,43 @@ export const Conversation = () => {
           </Form>
         </div>
         <div className="space-y-4">
+
+          {messages.length===0 && !isLoading && (
+            <EmptySection label="Lets start a conversation">
+              <RobotSVG height="h-28" width="w-28" />
+            </EmptySection>
+          )}
+
+          {isLoading && (
+            <EmptySection label="Computing...">
+              <RobotSVG animate height="h-28" width="w-28" />
+            </EmptySection>
+          )}
+
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.length===0 && !isLoading && (
-              <Empty />
-            )}
             {messages.map(message => (
               <div 
                 key={message.content}
-                className={cn("border px-6 py-6 whitespace-pre-line", {
-                  "bg-gray-700 text-gray-100": message.role==="assistant",
-                  "bg-gray-100 text-gray-700": message.role!="assistant",
+                className={cn("border flex items-center relative px-6 py-6 whitespace-pre-line rounded-lg", {
+                  "bg-gray-100 shadow-sm": message.role==="assistant",
                 })}
-              >
-                {message.content}
+              > 
+                <div className="self-start mr-4">
+                  {message.role!=='assistant' ? 
+                    <UserAvatar /> : 
+                    <RobotSVG className="" height="h-10" width="w-10" />}
+                </div>
+                <p className={cn("text-lg", {
+                  "mt-3": message.role==='assistant'
+                })}>
+                  {message.content}
+                </p>
+                
               </div>
             ))}
           </div>
+
         </div>
-        
       </div>
     </>
   )
