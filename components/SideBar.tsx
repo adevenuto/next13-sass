@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { Montserrat } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from 'lucide-react'
+import { Code2, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { RobotSVG } from './RobotSVG'
 
@@ -48,7 +48,7 @@ const routes = [
   },
   {
     label: 'Code Gen',
-    icon: Code,
+    icon: Code2,
     href: "/code",
     color: "text-green-700"
   },

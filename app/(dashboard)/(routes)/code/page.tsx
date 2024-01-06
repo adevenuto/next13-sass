@@ -1,7 +1,8 @@
 "use client"
 
-import { MessageSquare } from 'lucide-react'
+import { Code2, Divide } from 'lucide-react'
 import React, { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 import { useForm } from 'react-hook-form'
 import { ChatCompletionAssistantMessageParam } from 'openai/resources/index.mjs'
@@ -29,7 +30,7 @@ import { UserAvatar } from '@/components/UserAvatar'
 
 
 
-export const Conversation = () => {
+export const Code = () => {
   const router = useRouter()
   const [messages, setMessages] = useState<ChatCompletionAssistantMessageParam[]>([])
 
@@ -48,7 +49,7 @@ export const Conversation = () => {
         content: values.prompt
       }
       const newMessages = [...messages, userMessage]
-      const response = await axios.post('/api/conversation', {
+      const response = await axios.post('/api/code', {
         messages: newMessages
       })
       setMessages((current) => [...current, userMessage, response.data])
@@ -62,11 +63,11 @@ export const Conversation = () => {
   return (
     <>
       <Heading 
-        title="Conversation"
-        description="A conversation model to stimulate your mind"
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Generation"
+        description="Ask me to write some code"
+        icon={Code2}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <div className='mb-10'>
@@ -83,7 +84,7 @@ export const Conversation = () => {
                       <Input 
                         className='text-lg border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent'
                         disabled={isLoading}
-                        placeholder='How far away is the sun?'
+                        placeholder='Ask me a coding question'
                         {...field}
                       />
                     </FormControl>
@@ -103,7 +104,7 @@ export const Conversation = () => {
         <div className="space-y-4">
 
           {messages.length===0 && !isLoading && (
-            <EmptySection label="Lets start a conversation">
+            <EmptySection label="Let Do some pair programming!">
               <RobotSVG height="h-28" width="w-28" />
             </EmptySection>
           )}
@@ -118,19 +119,32 @@ export const Conversation = () => {
             {messages.map(message => (
               <div 
                 key={message.content}
-                className={cn("border flex items-center relative px-6 py-6 whitespace-pre-line rounded-lg", {
+                className={cn("border flex items-center relative px-6 py-6 whitespace-pre-line rounded-lg overflow-auto", {
                   "bg-gray-100 shadow-sm": message.role==="assistant",
                 })}
               > 
                 <div className="self-start mr-4">
                   {message.role!=='assistant' ? 
                     <UserAvatar /> : 
-                    <RobotSVG className="" height="h-10" width="w-10" />}
+                    <RobotSVG height="h-10" width="w-10" />}
                 </div>
                 <div className={cn("text-lg leading-8", {
                   "mt-3": message.role==='assistant'
                 })}>
-                  {message.content}
+                  <ReactMarkdown
+                    components={{
+                      pre: ({node, ...props}) => (
+                        <div className='w-full p-6 my-2 rounded-lg bg-black/10'>
+                          <pre {...props} />
+                        </div>
+                      ),
+                      code: ({node, ...props}) => (
+                        <code className='p-1 rounded-lg bg-black/10' {...props}/>
+                      )
+                    }}
+                  >
+                    {message.content || ""}
+                  </ReactMarkdown>
                 </div>
                 
               </div>
@@ -143,5 +157,5 @@ export const Conversation = () => {
   )
 }
 
-export default Conversation
+export default Code
 
