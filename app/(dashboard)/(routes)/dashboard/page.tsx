@@ -23,20 +23,20 @@ export default function Dashboard() {
       bgColor: "bg-pink-700/10",
       href: "/image"
     },
-    {
-      label: "Video Gen",
-      icon: Video,
-      color: "text-orange-700",
-      bgColor: "bg-orange-700/10",
-      href: "/video"
-    },
-    {
-      label: "Music Gen",
-      icon: Music,
-      color: "text-emerald-500",
-      bgColor: "bg-emerald-500/10",
-      href: "/music"
-    },
+    // {
+    //   label: "Video Gen",
+    //   icon: Video,
+    //   color: "text-orange-700",
+    //   bgColor: "bg-orange-700/10",
+    //   href: "/video"
+    // },
+    // {
+    //   label: "Music Gen",
+    //   icon: Music,
+    //   color: "text-emerald-500",
+    //   bgColor: "bg-emerald-500/10",
+    //   href: "/music"
+    // },
     {
       label: "Code Gen",
       icon: Code,
