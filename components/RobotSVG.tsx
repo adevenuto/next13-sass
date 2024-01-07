@@ -48,7 +48,6 @@ export const RobotSVG = ({
         ))}
       </svg>
     </div>
-    
   )
 }
 
