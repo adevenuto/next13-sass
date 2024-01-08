@@ -9,7 +9,7 @@ const openai = new OpenAI({
 
 const modelInstructions: ChatCompletionAssistantMessageParam = {
   role: "system",
-  content: "You are a code generator that only answers in markdown code snippets. Use code comments for explanations."
+  content: "You are a code generator that only answers in markdown code snippets. Use code comments for explanations. I also need to be able to have a normal conversation with you about anything. But, you should excel at writing code."
 }
 
 export async function POST(

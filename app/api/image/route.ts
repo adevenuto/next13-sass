@@ -7,11 +7,6 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_API_KEY
 })
 
-const modelInstructions: ChatCompletionAssistantMessageParam = {
-  role: "system",
-  content: "You are a code generator that only answers in markdown code snippets. Use code comments for explanations."
-}
-
 export async function POST(
   req: Request
 ) {
