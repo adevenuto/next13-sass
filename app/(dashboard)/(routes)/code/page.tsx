@@ -128,7 +128,7 @@ export const Code = () => {
                     <UserAvatar /> : 
                     <RobotSVG height="h-10" width="w-10" />}
                 </div>
-                <div className={cn("text-lg leading-8", {
+                <div className={cn("text-base leading-[1.8rem]", {
                   "mt-3": message.role==='assistant'
                 })}>
                   <ReactMarkdown
