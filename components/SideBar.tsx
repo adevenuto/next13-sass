@@ -1,13 +1,14 @@
 "use client"
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { Montserrat } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
 import { Code2, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { RobotSVG } from './RobotSVG'
+import ApiLimitDisplay from './ApiLimitDisplay'
 
 const montserrat = Montserrat({
   weight: "600",
@@ -58,7 +59,13 @@ const routes = [
   },
 ]
 
-export const SideBar = () => {
+interface SideBarProps {
+  apiLimitCount: number
+}
+
+export const SideBar = ({
+  apiLimitCount = 0
+}: SideBarProps) => {
   const pathName = usePathname()
   return (
     <div className="flex flex-col h-full gap-3 py-3 text-white bg-gray-800">
@@ -88,6 +95,9 @@ export const SideBar = () => {
             ))}
           </div>
         </div>
+        <ApiLimitDisplay
+          apiLimitCount={apiLimitCount}
+        ></ApiLimitDisplay>
     </div>
   )
 }
