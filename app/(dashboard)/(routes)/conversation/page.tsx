@@ -8,6 +8,7 @@ import { ChatCompletionAssistantMessageParam } from 'openai/resources/index.mjs'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import axios from 'axios'
+import { useProModal } from '@/app/hooks/use-pro-modal'
 
 
 import { formSchema } from './constants'
@@ -32,6 +33,7 @@ import { UserAvatar } from '@/components/UserAvatar'
 export const Conversation = () => {
   const router = useRouter()
   const [messages, setMessages] = useState<ChatCompletionAssistantMessageParam[]>([])
+  const proModal = useProModal()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,7 +56,10 @@ export const Conversation = () => {
       setMessages((current) => [...current, userMessage, response.data])
       form.reset()
     } catch (error: any) {
-      // TODO: catch token limit error and trigger pro modal
+      if(error?.request?.status===403) {
+        form.reset()
+        proModal.onOpen()
+      } 
     } finally {
       router.refresh()
     }

@@ -26,12 +26,15 @@ import { EmptySection } from '@/components/EmptySection'
 import { RobotSVG } from '@/components/RobotSVG'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardFooter } from '@/components/ui/card'
+import { useProModal } from '@/app/hooks/use-pro-modal'
 
 
 
 export const ImageGen = () => {
   const router = useRouter()
   const [images, setImages] = useState([])
+  const proModal = useProModal()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,10 +53,12 @@ export const ImageGen = () => {
       const urls = response.data.map((image: {url: string}) => image.url) 
       
       setImages(urls)
-
       form.reset()
     } catch (error: any) {
-      // TODO: catch token limit error and trigger pro modal
+      if(error?.request?.status===403) {
+        form.reset()
+        proModal.onOpen()
+      } 
     } finally {
       router.refresh()
     }

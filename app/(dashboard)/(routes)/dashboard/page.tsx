@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
-import { ArrowRight, Code, Image, MessageSquare, Music, Video } from "lucide-react"
+import { ArrowRight, CodeIcon, Image, MessageSquare } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export default function Dashboard() {
@@ -23,23 +23,9 @@ export default function Dashboard() {
       bgColor: "bg-pink-700/10",
       href: "/image"
     },
-    // {
-    //   label: "Video Gen",
-    //   icon: Video,
-    //   color: "text-orange-700",
-    //   bgColor: "bg-orange-700/10",
-    //   href: "/video"
-    // },
-    // {
-    //   label: "Music Gen",
-    //   icon: Music,
-    //   color: "text-emerald-500",
-    //   bgColor: "bg-emerald-500/10",
-    //   href: "/music"
-    // },
     {
       label: "Code Gen",
-      icon: Code,
+      icon: CodeIcon,
       color: "text-green-700",
       bgColor: "bg-green-700/10",
       href: "/code"

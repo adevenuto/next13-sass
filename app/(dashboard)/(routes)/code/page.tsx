@@ -1,6 +1,6 @@
 "use client"
 
-import { Code2, Divide } from 'lucide-react'
+import { Code2 } from 'lucide-react'
 import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
@@ -9,6 +9,7 @@ import { ChatCompletionAssistantMessageParam } from 'openai/resources/index.mjs'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import axios from 'axios'
+import { useProModal } from '@/app/hooks/use-pro-modal'
 
 
 import { formSchema } from './constants'
@@ -33,6 +34,7 @@ import { UserAvatar } from '@/components/UserAvatar'
 export const Code = () => {
   const router = useRouter()
   const [messages, setMessages] = useState<ChatCompletionAssistantMessageParam[]>([])
+  const proModal = useProModal()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,7 +57,10 @@ export const Code = () => {
       setMessages((current) => [...current, userMessage, response.data])
       form.reset()
     } catch (error: any) {
-      // TODO: catch token limit error and trigger pro modal
+      if(error?.request?.status===403) {
+        form.reset()
+        proModal.onOpen()
+      } 
     } finally {
       router.refresh()
     }
