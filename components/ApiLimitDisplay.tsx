@@ -4,6 +4,7 @@ import { MAX_FREE_COUNTS } from '@/app/constants'
 import { Progress } from '@/components/ui/progress'
 import { Button } from '@/components/ui/button'
 import { Zap } from 'lucide-react'
+import { useProModal } from '@/app/hooks/use-pro-modal'
 
 interface ApiLimitCountProps {
   apiLimitCount: number
@@ -12,6 +13,8 @@ interface ApiLimitCountProps {
 export const ApiLimitCount = ({
   apiLimitCount
 }: ApiLimitCountProps) => {
+
+  const proModal = useProModal()
 
   // prevent any potential hydration errors
   const [mounted, setMounted] = useState(false)
@@ -32,6 +35,7 @@ export const ApiLimitCount = ({
                 value={(apiLimitCount / MAX_FREE_COUNTS) * 100}
               />
               <Button
+                onClick={() => proModal.onOpen()}
                 variant="upgrade"
                 className='w-full'
               > 
