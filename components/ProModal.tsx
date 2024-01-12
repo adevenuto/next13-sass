@@ -12,9 +12,8 @@ import { useProModal } from '@/app/hooks/use-pro-modal'
 import { Badge } from './ui/badge'
 import { DialogDescription } from '@radix-ui/react-dialog'
 
-import { ArrowRight, Check, CodeIcon, Image, MessageSquare, Zap } from "lucide-react"
+import { Check, CodeIcon, Image, MessageSquare, Zap } from "lucide-react"
 import { Card } from './ui/card'
-import router from 'next/router'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 
