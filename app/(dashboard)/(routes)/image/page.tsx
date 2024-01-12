@@ -55,7 +55,7 @@ export const ImageGen = () => {
       setImages(urls)
       form.reset()
     } catch (error: any) {
-      if(error.request.status===403) {
+      if(error?.request?.status===403) {
         form.reset()
         proModal.onOpen()
       } 

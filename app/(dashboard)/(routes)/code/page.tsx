@@ -57,7 +57,7 @@ export const Code = () => {
       setMessages((current) => [...current, userMessage, response.data])
       form.reset()
     } catch (error: any) {
-      if(error.request.status===403) {
+      if(error?.request?.status===403) {
         form.reset()
         proModal.onOpen()
       } 

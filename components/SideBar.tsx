@@ -34,18 +34,6 @@ const routes = [
     href: "/image",
     color: "text-pink-700"
   },
-  // {
-  //   label: 'Video Gen',
-  //   icon: VideoIcon,
-  //   href: "/video",
-  //   color: "text-orange-700"
-  // },
-  // {
-  //   label: 'Music Gen',
-  //   icon: Music,
-  //   href: "/music",
-  //   color: "text-emerald-500"
-  // },
   {
     label: 'Code Gen',
     icon: Code2,
