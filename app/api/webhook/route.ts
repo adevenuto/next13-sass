@@ -7,7 +7,7 @@ import { stripe } from "@/lib/stripe"
 
 export async function POST(req: Request) {
   const body = await req.text()
-  const signature = headers().get("Strip-Signature") as string
+  const signature = headers().get("Stripe-Signature") as string
 
   let event: Stripe.Event
 
@@ -20,6 +20,10 @@ export async function POST(req: Request) {
   } catch (error: any) {
     return new NextResponse(`Stripe webhook error: ${error.message}`, {status: 400})
   }
+
+  console.log('/////////////')
+  console.log(event?.type)
+  console.log('/////////////')
 
   const session = event.data.object as Stripe.Checkout.Session
 
