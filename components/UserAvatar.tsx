@@ -8,7 +8,6 @@ import { useUser } from '@clerk/nextjs'
 
 export const UserAvatar = () => {
   const {user} = useUser()
-  console.log(user)
   return (
     <Avatar>
       <AvatarImage src={user?.imageUrl} />

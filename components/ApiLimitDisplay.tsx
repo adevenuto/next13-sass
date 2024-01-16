@@ -3,20 +3,22 @@ import { Card, CardContent } from '@/components/ui/card'
 import { MAX_FREE_COUNTS } from '@/app/constants'
 import { Progress } from '@/components/ui/progress'
 import { Button } from '@/components/ui/button'
-import { Zap } from 'lucide-react'
 import { useProModal } from '@/app/hooks/use-pro-modal'
+import { Zap } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface ApiLimitCountProps {
-  apiLimitCount: number
+  apiLimitCount: number,
+  isPro: boolean
 }
 
 export const ApiLimitCount = ({
-  apiLimitCount
+  apiLimitCount,
+  isPro
 }: ApiLimitCountProps) => {
-
   const proModal = useProModal()
 
-  // prevent any potential hydration errors
+  // prevent potential hydration errors
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     setMounted(true)
@@ -24,7 +26,9 @@ export const ApiLimitCount = ({
   if(!mounted) return null
   
   return (
-    <div className='px-3'>
+    <div className={cn("px-3", {
+      "hidden": isPro
+    })}>
       <Card
         className='bg-white/10 border-0'
       >

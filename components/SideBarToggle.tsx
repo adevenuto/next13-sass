@@ -7,10 +7,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { SideBar } from '@/components/SideBar'
+import { checkSubscription } from '@/lib/subscription'
 import { getApiLimitCount } from '@/lib/api-limit'
 
 export const SideBarToggle = async () => {
   const apiLimitCount = await getApiLimitCount()
+  const isPro = await checkSubscription()
   return (
     <Sheet>
       <SheetTrigger>
@@ -22,7 +24,10 @@ export const SideBarToggle = async () => {
         side="left"
         className="p-0 w-72"
       >
-        <SideBar apiLimitCount={apiLimitCount}/>
+        <SideBar 
+          isPro={isPro}
+          apiLimitCount={apiLimitCount}
+        />
       </SheetContent>
     </Sheet>
   )

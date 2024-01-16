@@ -21,9 +21,9 @@ export async function POST(req: Request) {
     return new NextResponse(`Stripe webhook error: ${error.message}`, {status: 400})
   }
 
-  console.log('/////////////')
-  console.log(event?.type)
-  console.log('/////////////')
+  // console.log('/////////////')
+  // console.log(event?.type)
+  // console.log('/////////////')
 
   const session = event.data.object as Stripe.Checkout.Session
 
