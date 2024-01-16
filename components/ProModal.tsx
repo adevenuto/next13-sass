@@ -11,14 +11,11 @@ import {
 } from "@/components/ui/dialog"
 import { useProModal } from '@/app/hooks/use-pro-modal'
 import { Badge } from './ui/badge'
-import { DialogDescription } from '@radix-ui/react-dialog'
 
 import { Check, CodeIcon, Image, MessageSquare, Zap } from "lucide-react"
 import { Card } from './ui/card'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
-
-const [loading, setLoading] = useState(false)
 
 const tools = [
   {
@@ -44,20 +41,23 @@ const tools = [
   },
 ]
 
-const onSubscribe = async () => {
-  try {
-    setLoading(true)
-    const response = await axios.get('/api/stripe')
-    window.location.href = response.data.url
-  } catch (error) {
-    console.log(error, 'STRIPE ERROR')
-  } finally {
-    setLoading(false)
-  }
-}
-
 export const ProModal = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const proModal = useProModal()
+
+  const onSubscribe = async () => {
+    try {
+      setIsLoading(true)
+      const response = await axios.get('/api/stripe')
+      console.log(response)
+      window.location.href = response.data.url
+    } catch (error) {
+      console.log(error, 'STRIPE ERROR')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
       <DialogContent>
@@ -73,35 +73,37 @@ export const ProModal = () => {
               </Badge>
             </div>
           </DialogTitle>
-          <DialogDescription className='text-center pt-2 space-y-2 text-zinc-900 font-medium'>
-          {tools.map(tool => (
-            <Card
-              key={tool.href}
-              className="flex items-center justify-between p-4 border-black/5"
-            >
-              <div className="flex items-center gap-x-4">
-                <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
-                  <tool.icon className={cn("w-8 h-8", tool.color)} />
-                </div>
-                <div className="font-semibold">
-                  {tool.label}
-                </div>
-              </div>
-              <Check/>
-            </Card>
-          ))}
-          </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
-        <Button
-          onClick={onSubscribe}
-          variant="upgrade"
-          className='w-full'
-          size="lg"
-        > 
-          Upgrade to Premium
-          <Zap className='h-4 w-4 ml-2 fill-white' />
-        </Button>
+          <div className='text-center pt-2 space-y-2 text-zinc-900 font-medium'>
+            {tools.map(tool => (
+              <Card
+                key={tool.href}
+                className="flex items-center justify-between p-4 border-black/5"
+              >
+                <div className="flex items-center gap-x-4">
+                  <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
+                    <tool.icon className={cn("w-8 h-8", tool.color)} />
+                  </div>
+                  <div className="font-semibold">
+                    {tool.label}
+                  </div>
+                </div>
+                <Check/>
+              </Card>
+            ))}
+          </div>
+        <DialogFooter className='mt-2'>
+          <Button
+            onClick={onSubscribe}
+            variant="upgrade"
+            className='w-full'
+            size="lg"
+          > 
+            Upgrade to Premium
+            <Zap className={cn("h-4 w-4 ml-2 fill-white", {
+              'animate-spin': isLoading
+            })} />
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
