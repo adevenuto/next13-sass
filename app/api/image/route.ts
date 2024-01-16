@@ -23,13 +23,12 @@ export async function POST(
     if(!amount) return new NextResponse('A amount is required', {status: 400})
     if(!resolution) return new NextResponse('A resolution is required', {status: 400})
 
-    if(!isPro) {
-      const freeTrial = await checkApiLimit()
-      if(!freeTrial) {
-        return new NextResponse('Free trial has expired', {
-          status: 403
-        })
-      }
+    
+    const freeTrial = await checkApiLimit()
+    if(!freeTrial && !isPro) {
+      return new NextResponse('Free trial has expired', {
+        status: 403
+      })
     }
 
     const response = await openai.images.generate({
@@ -40,7 +39,8 @@ export async function POST(
       n: parseInt(amount)
     })
 
-    await increaseApiLimit()
+    
+    if(!isPro) await increaseApiLimit()
 
     return NextResponse.json(response.data, {status: 200})
   } catch (error) {

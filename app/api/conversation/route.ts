@@ -23,13 +23,12 @@ export async function POST(
     if(!openai.apiKey) return new NextResponse('Api key has not been configured', {status: 500})
     if(!messages) return new NextResponse('Message was not returned from OpenAI', {status: 400})
 
-    if(!isPro) {
-      const freeTrial = await checkApiLimit()
-      if(!freeTrial) {
-        return new NextResponse('Free trial has expired', {
-          status: 403
-        })
-      }
+    
+    const freeTrial = await checkApiLimit()
+    if(!freeTrial && !isPro) {
+      return new NextResponse('Free trial has expired', {
+        status: 403
+      })
     }
     
 
@@ -38,7 +37,7 @@ export async function POST(
       messages
     })
 
-    await increaseApiLimit()
+    if(!isPro) await increaseApiLimit()
 
     const message = response.choices[0].message
 
