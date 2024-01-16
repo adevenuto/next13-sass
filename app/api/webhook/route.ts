@@ -4,6 +4,7 @@ import { NextResponse } from "next/server"
 
 import prismadb from "@/lib/prismadb"
 import { stripe } from "@/lib/stripe"
+import { resetApiLimit } from "@/lib/api-limit"
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -66,6 +67,8 @@ export async function POST(req: Request) {
       }
     })
   }
+
+  await resetApiLimit(session?.metadata?.userId)
 
   return new NextResponse(null, {status: 200})
 }
