@@ -28,6 +28,7 @@ import { cn } from '@/lib/utils'
 import { EmptySection } from '@/components/EmptySection'
 import { RobotSVG } from '@/components/RobotSVG'
 import { UserAvatar } from '@/components/UserAvatar'
+import { toast } from 'react-hot-toast'
 
 
 
@@ -60,7 +61,9 @@ export const Code = () => {
       if(error?.request?.status===403) {
         form.reset()
         proModal.onOpen()
-      } 
+      } else { 
+        toast.error('Sorry, something went wrong.')
+      }
     } finally {
       router.refresh()
     }

@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 import React, { useState } from 'react'
+import { toast } from 'react-hot-toast'
 import {
   Dialog,
   DialogContent,
@@ -49,10 +50,9 @@ export const ProModal = () => {
     try {
       setIsLoading(true)
       const response = await axios.get('/api/stripe')
-      console.log(response)
       window.location.href = response.data.url
     } catch (error) {
-      console.log(error, 'STRIPE ERROR')
+      toast.error('Sorry, something went wrong.')
     } finally {
       setIsLoading(false)
     }
@@ -94,6 +94,7 @@ export const ProModal = () => {
           </div>
         <DialogFooter className='mt-2'>
           <Button
+            disabled={isLoading}
             onClick={onSubscribe}
             variant="upgrade"
             className='w-full'

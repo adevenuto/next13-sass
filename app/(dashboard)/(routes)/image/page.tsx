@@ -28,6 +28,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardFooter } from '@/components/ui/card'
 import { useProModal } from '@/app/hooks/use-pro-modal'
 
+import { toast } from 'react-hot-toast'
+
 
 
 export const ImageGen = () => {
@@ -58,7 +60,9 @@ export const ImageGen = () => {
       if(error?.request?.status===403) {
         form.reset()
         proModal.onOpen()
-      } 
+      } else { 
+        toast.error('Sorry, something went wrong.')
+      }
     } finally {
       router.refresh()
     }

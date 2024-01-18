@@ -14,9 +14,5 @@ export const ModalProvider = () => {
     return null
   }
 
-  return (
-    <>
-      <ProModal />
-    </>
-  )
+  return <ProModal />
 }

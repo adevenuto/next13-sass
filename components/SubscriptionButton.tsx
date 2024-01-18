@@ -6,6 +6,8 @@ import { Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 
+import { toast } from 'react-hot-toast'
+
 
 interface SubscriptionButtonProps {
   isPro: boolean
@@ -23,7 +25,7 @@ export const SubscriptionButton = ({
       const response = await axios.get('/api/stripe')
       window.location.href = response.data.url
     } catch (error) {
-      console.log('BILLING_ERROR:', error)
+      toast.error('Sorry, something went wrong.')
     } finally {
       setIsLoading(false)
     }
@@ -33,6 +35,7 @@ export const SubscriptionButton = ({
     <Button
       onClick={handleClick}
       variant={isPro ? "default" : "upgrade"}
+      disabled={isLoading}
     >
       {
         isPro ? 
