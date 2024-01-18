@@ -2,6 +2,7 @@
 
 import { MessageSquare } from 'lucide-react'
 import React, { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 import { useForm } from 'react-hook-form'
 import { ChatCompletionAssistantMessageParam } from 'openai/resources/index.mjs'
@@ -27,6 +28,7 @@ import { cn } from '@/lib/utils'
 import { EmptySection } from '@/components/EmptySection'
 import { RobotSVG } from '@/components/RobotSVG'
 import { UserAvatar } from '@/components/UserAvatar'
+import { toast } from 'react-hot-toast'
 
 
 
@@ -59,7 +61,9 @@ export const Conversation = () => {
       if(error?.request?.status===403) {
         form.reset()
         proModal.onOpen()
-      } 
+      } else {
+        toast.error('Sorry, something went wrong.')
+      }
     } finally {
       router.refresh()
     }
@@ -105,8 +109,8 @@ export const Conversation = () => {
             </form>
           </Form>
         </div>
+        
         <div className="space-y-4">
-
           {messages.length===0 && !isLoading && (
             <EmptySection label="Lets start a conversation">
               <RobotSVG height="h-28" width="w-28" />
@@ -135,7 +139,20 @@ export const Conversation = () => {
                 <div className={cn("text-lg leading-8", {
                   "mt-3": message.role==='assistant'
                 })}>
-                  {message.content}
+                  <ReactMarkdown
+                    components={{
+                      pre: ({node, ...props}) => (
+                        <div className='w-full p-6 my-2 rounded-lg bg-black/10'>
+                          <pre {...props} />
+                        </div>
+                      ),
+                      code: ({node, ...props}) => (
+                        <code className='p-1 rounded-lg bg-black/10' {...props}/>
+                      )
+                    }}
+                  >
+                    {message.content || ""}
+                  </ReactMarkdown>
                 </div>
                 
               </div>
