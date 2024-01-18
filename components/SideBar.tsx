@@ -65,7 +65,7 @@ export const SideBar = ({
               <RobotSVG animate height="w-10" width="w-10"/>
             </Link>
             <h1 className={cn('self-end text-2xl font-bold leading-none', montserrat.className)}>
-              NextSass
+              { process.env.NEXT_PUBLIC_APP_NAME ?? ""}
             </h1>
           </div>
           <div className="space-y-1">
