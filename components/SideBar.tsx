@@ -60,14 +60,14 @@ export const SideBar = ({
   return (
     <div className="flex flex-col h-full gap-3 py-3 text-white bg-gray-800">
         <div className="flex-1 px-4">
-          <div className="flex items-center mb-16">
-            <Link className="mr-1" href="/dashboard">
+          <Link className="mr-1" href="/dashboard">
+            <div className="flex items-center mb-16">
               <RobotSVG animate height="w-10" width="w-10"/>
-            </Link>
-            <h1 className={cn('self-end text-2xl font-bold leading-none', montserrat.className)}>
-              { process.env.NEXT_PUBLIC_APP_NAME ?? ""}
-            </h1>
-          </div>
+              <h1 className={cn('self-end text-2xl font-bold leading-none ml-1', montserrat.className)}>
+                { process.env.NEXT_PUBLIC_APP_NAME }
+              </h1>
+            </div>
+          </Link>
           <div className="space-y-1">
             {routes.map(route => (
               <Link 

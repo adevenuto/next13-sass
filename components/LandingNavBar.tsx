@@ -7,7 +7,6 @@ import { useAuth } from "@clerk/nextjs"
 import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
 import { RobotSVG } from "./RobotSVG"
-import { DEFAULT_MAX_VERSION } from "tls"
 
 const font = Montserrat({
   weight: "600",
@@ -21,14 +20,19 @@ export const LandingNavBar = () => {
       <Link href="/" className="flex items-center">
         <RobotSVG animate height="w-10" width="w-10"/>
         <h1 className={cn("font-bold text-2xl text-white self-end leading-none", font.className)}>
-          { process.env.NEXT_PUBLIC_APP_NAME ?? ''}
+          { process.env.NEXT_PUBLIC_APP_NAME }
         </h1>
       </Link>
-      {!isSignedIn && 
-        <div>
-          
-        </div>
-      }
+      <div className="flex items-center gap-x-2">
+        <Link href={isSignedIn ? '/dashboard' : "/sign-up"}>
+          <Button
+            className="rounded-full"
+            variant="outline"
+            size="lg"
+          >Get Started
+          </Button>
+        </Link>
+      </div>
     </nav>
   )
 }

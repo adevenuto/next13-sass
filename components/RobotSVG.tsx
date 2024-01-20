@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 
 interface robotProps {
   animate?: boolean,
+  animateColor?: string,
   height?: string,
   width?: string,
   className?: string
@@ -12,7 +13,8 @@ export const RobotSVG = ({
   animate,
   height,
   width,
-  className
+  className,
+  animateColor = "#000"
 }: robotProps) => {
   const paths = ['M12 5L17.6569 10.6569', 'M22 1L22 9', 'M31.8284 5.17157L26.1716 10.8284']
   return (
@@ -39,7 +41,7 @@ export const RobotSVG = ({
               repeatType: "loop",
               repeatDelay: 0
             }}
-            stroke="#000"
+            stroke={animateColor}
             strokeOpacity={1}
             strokeLinecap="round"
             strokeWidth={3}
